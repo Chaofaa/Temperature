@@ -1,0 +1,47 @@
+version: '3.5'
+
+services:
+  server:
+    build: ./containers/server
+    container_name: eco-finance
+    ports:
+      - "806:80"
+    volumes:
+      - ./../project:/app:cached
+    #      - ./containers/supervisor:/etc/supervisor:cached
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      #- VIRTUAL_HOST=web.ls.local
+      #- LETSENCRYPT_HOST=web.ls.local
+      #- LETSENCRYPT_EMAIL=kirgudu12@gmail.com
+    networks:
+      - network1
+    depends_on:
+      - postgres
+      #- redis
+
+  postgres:
+    image: postgres:10-alpine
+    #        build: ./containers/postgres/build
+    container_name: eco-finance-postgres
+    volumes:
+      - ./tmp:/tmp
+    ports:
+      - "9001:5432"
+    environment:
+      - POSTGRES_DB=eco_finance
+      - POSTGRES_USER=postgres
+      - PGPASSWORD=postgres-password
+      - POSTGRES_PASSWORD=postgres-password
+    networks:
+      - network1
+
+  #redis:
+  #  image: redis:alpine
+  #  container_name: eco-finance-redis
+  #  networks:
+  #    - network1
+
+networks:
+  network1:
+    name: network-eco-finance
