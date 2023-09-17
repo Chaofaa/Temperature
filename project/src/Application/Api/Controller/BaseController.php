@@ -2,14 +2,9 @@
 
 namespace Application\Api\Controller;
 
-use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BaseController {
-
-    public function __construct(
-        protected ContainerInterface $container
-    ) {}
 
     protected function successResponse(array|string $data): JsonResponse
     {

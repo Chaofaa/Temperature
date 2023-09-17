@@ -15,12 +15,23 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: origin, content-type, country');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT, PATCH');
 
-$locator = new FileLocator(__DIR__ . '/../config');
-
 // DI
 $containerBuilder = new DI\ContainerBuilder();
-$containerBuilder->addDefinitions('../config/services.php');
+$containerBuilder->addDefinitions(__DIR__ . '/../config/services.php');
 $container = $containerBuilder->build();
+
+// Run migration -> fast solution
+if (php_sapi_name() === "cli") {
+    echo 'creating database' . PHP_EOL;
+
+    require __DIR__ . '/../migrations/CreateStructureAction.php';
+    (new CreateStructureAction($container->get(PDO::class)))->execute();
+
+    echo 'database created' . PHP_EOL;
+    exit;
+}
+
+$locator = new FileLocator(__DIR__ . '/../config');
 
 // Request
 $request = Request::createFromGlobals();

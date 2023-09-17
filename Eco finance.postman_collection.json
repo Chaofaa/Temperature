@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "1bb051fe-c9d4-43e4-9467-324e7cc01420",
+		"name": "Eco finance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26848775"
+	},
+	"item": [
+		{
+			"name": "get by ip",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:806/api/sensor/read/44888",
+					"host": [
+						"localhost"
+					],
+					"port": "806",
+					"path": [
+						"api",
+						"sensor",
+						"read",
+						"44888"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"reading\": {\r\n        \"sensor_uuid\": \"1655cef1-8bf4-4f3e-a7b3-38dbd6abb83f\",\r\n        \"temperature\": \"123.02\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:806/api/push",
+					"host": [
+						"localhost"
+					],
+					"port": "806",
+					"path": [
+						"api",
+						"push"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
